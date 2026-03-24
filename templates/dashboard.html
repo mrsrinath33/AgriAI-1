@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" type="image/png" href="../static/image/Untitled design.png" />
+    <link rel="stylesheet" href="../static/css/dash-style.css" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .translate-section {
+        margin-left: auto;
+      }
+
+      /* Styles for the language dropdown */
+      #google_translate_element {
+        display: inline-block;
+        z-index: 1001; /* Ensure it's above the header */
+      }
+
+      #google_translate_element select {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        background-color: white; /* White background for dropdown */
+        color: #333; /* Dark text color */
+        font-size: 14px; /* Font size */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        transition: background-color 0.3s ease; /* Smooth transition */
+      }
+
+      #google_translate_element select:hover {
+        background-color: white; /* Light grey on hover */
+      }
+
+      /* Hide "Powered by Google Translate" */
+      .skiptranslate > iframe.skiptranslate {
+        display: none !important; /* Hides iframe that shows the "Powered by Google Translate" */
+      }
+
+      /* For hiding the original text */
+      body {
+        top: 0 !important; /* To prevent any unnecessary space */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Language selection dropdown with Google Translate -->
+    <div class="translate-section" id="google_translate_element"></div>
+    <header>
+      <div class="container">
+        <h1 class="logo">Agri Ai</h1>
+        <div class="nav-right">
+          <nav>
+            <ul>
+              <li><a href="/dashboard">Dashboard</a></li>
+              <li><a href="/crop-recommend">Recommend Crop</a></li>
+              <li><a href="/yield-predict">Predict Yield</a></li>
+              <li><a href="/weather-forecast">Weather Forecast</a></li>
+              <li><a href="/fertilizer-recommend">Fertilizer Recommendation</a></li>
+              <li><a href="/analysis">Analysis</a></li>
+            </ul>
+          </nav>
+          <div class="user-menu">
+            <img
+              src="../static/image/user-logo.png"
+              alt="User"
+              class="user-icon"
+              onclick="toggleUserMenu()"
+            />
+            <div class="user-dropdown" id="user-dropdown">
+              <a href="/profile">View Profile</a>
+              <a href="/help">Help ?</a>
+              <a href="/logout">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero-banner">
+      <div
+        id="carouselExampleCaptions"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="../static/image/farm1.jpg"
+              class="d-block w-100"
+              alt="banner-img"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Discover Our Top Crops</h5>
+              <p>Explore the best crops to cultivate this season with our expert recommendations.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../static/image/crop1.jpg"
+              class="d-block w-100"
+              alt="banner-img"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>High-Yielding Varieties</h5>
+              <p>Learn about high-yielding crop varieties that can maximize your harvest.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="../static/image/crop2.jpg"
+              class="d-block w-100"
+              alt="banner-img"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Optimal Fertilizer Use</h5>
+              <p>Find the best fertilizer recommendations tailored to your crop needs for optimal growth.</p>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="container">
+      <section id="recommend-crop" class="crop-cards">
+        <div class="content">
+          <div class="text">
+            <h2>Recommend Crop</h2>
+            <p>
+              Use our advanced algorithms to get the best crop recommendations
+              based on your soil and weather conditions.
+            </p>
+            <a href="/crop-recommend" class="btn">Try Now</a>
+          </div>
+          <div class="image">
+            <img src="../static/image/crops-grow.jpg" alt="Crop Recommendation" />
+          </div>
+        </div>
+      </section>
+  
+      <section id="predict-yield" class="alternate crop-cards"">
+        <div class="content">
+          <div class="text">
+            <h2>Predict Yield</h2>
+            <p>Accurately predict crop yield with our machine learning models.</p>
+            <a href="/yield-predict" class="btn">Predict Now</a>
+          </div>
+          <div class="image">
+            <img src="../static/image/crop-yeild.jpg" alt="Yield Prediction" />
+          </div>
+        </div>
+      </section>
+  
+      <section id="weather-forecast"  class="crop-cards">
+        <div class="content">
+          <div class="text">
+            <h2>Weather Forecast</h2>
+            <p>Get precise weather forecasts to plan your farming activities.</p>
+            <a href="/weather-forecast" class="btn">Check Weather</a>
+          </div>
+          <div class="image">
+            <img src="../static/image/crop-rain.jpg" alt="Weather Forecast" />
+          </div>
+        </div>
+      </section>
+  
+      <section id="fertilizer-recommendation" class="alternate crop-cards">
+        <div class="content">
+          <div class="text">
+            <h2>Fertilizer Recommendation</h2>
+            <p>Optimize your fertilizer usage with our expert recommendations.</p>
+            <a href="/fertilizer-recommend" class="btn">Get Recommendations</a>
+          </div>
+          <div class="image">
+            <img
+              src="../static/image/crop-fertilizer.jpg"
+              alt="Fertilizer Recommendation"
+            />
+          </div>
+        </div>
+      </section>
+  
+      <section id="analysis" class="crop-cards">
+        <div class="content">
+          <div class="text">
+            <h2>Analysis</h2>
+            <p>Analyze your farming data to make informed decisions.</p>
+            <a href="/analysis" class="btn">View Analysis</a>
+          </div>
+          <div class="image">
+            <img src="../static/image/Crop-analysis.jpg" alt="Analysis" />
+          </div>
+        </div>
+      </section>
+    </div>
+  
+
+    <footer>
+      <p>&copy; 2024 AgriAi. All rights reserved.</p>
+    </footer>
+
+    <script>
+      function toggleUserMenu() {
+        const userDropdown = document.getElementById("user-dropdown");
+        userDropdown.classList.toggle("show");
+      }
+
+      function logout() {
+        window.location.href = "{{ url_for('logout') }}";
+      }
+
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function (event) {
+        if (!event.target.matches(".user-icon")) {
+          const dropdowns = document.getElementsByClassName("user-dropdown");
+          for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains("show")) {
+              openDropdown.classList.remove("show");
+            }
+          }
+        }
+      };
+    </script>
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,hi,mr",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+
+        // Store the selected language in local storage
+        function setLanguage(lang) {
+          localStorage.setItem("preferredLanguage", lang);
+        }
+
+        // Retrieve the preferred language from local storage
+        function getPreferredLanguage() {
+          return localStorage.getItem("preferredLanguage") || "en"; // Default to English
+        }
+
+        // Load the selected language on page load
+        window.onload = function () {
+          const preferredLanguage = getPreferredLanguage();
+          if (preferredLanguage) {
+            document.querySelector("#google_translate_element select").value =
+              preferredLanguage; // Set the dropdown to the stored language
+            setLanguage(preferredLanguage); // Call setLanguage function to store it
+          }
+        };
+
+        // Add event listener to the dropdown to save the selected language
+        document.addEventListener("change", function (event) {
+          if (event.target.matches("#google_translate_element select")) {
+            setLanguage(event.target.value);
+          }
+        });
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    ></script>
+  </body>
+</html>

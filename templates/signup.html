@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agri AI - Signup</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #a8e063, #56ab2f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      width: 350px;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h1 {
+      color: #2f6627;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #555;
+      font-size: 0.95em;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus {
+      border-color: #56ab2f;
+      box-shadow: 0 0 8px rgba(86,171,47,0.4);
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #56ab2f;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #2f6627;
+      transform: scale(1.05);
+    }
+
+    .login {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #444;
+    }
+
+    .login a {
+      color: #56ab2f;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Signup Form -->
+  <div class="form-container signup-form" id="signup-form">
+    <h1>Welcome to Agri AI</h1>
+    <p class="subtitle">Sign up for personalized crop recommendations.</p>
+    <form method="POST" action="/signup">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter your Username" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required />
+
+      <button type="submit">Continue to your free account</button>
+    </form>
+    <p class="login">
+      Already have an account? <a href="/login" id="show-login">Sign in</a>
+    </p>
+  </div>
+</body>
+</html>

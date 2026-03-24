@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroSmart Sign In</title>
+  <link rel="stylesheet" href="../static/css/styles.css" />
+  <link rel="icon" type="image/png" href="../static/image/user-logo.png" />
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .translate-section { margin-left: auto; }
+
+    /* Language dropdown styling */
+    #google_translate_element {
+      display: inline-block;
+      z-index: 1001;
+    }
+    #google_translate_element select {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      background-color: white;
+      color: #333;
+      font-size: 14px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+    #google_translate_element select:hover {
+      background-color: #f9f9f9;
+    }
+
+    /* Hide Google Translate branding */
+    .skiptranslate > iframe.skiptranslate { display: none !important; }
+    body { top: 0 !important; }
+
+    /* Flash messages */
+    .flash-messages {
+      position: fixed;
+      bottom: 5px;
+      right: 240px;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      z-index: 1000;
+      width: 300px;
+      text-align: center;
+    }
+    .flash-message {
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .flash-message.error { background-color: #f8d7da; color: #721c24; }
+    .flash-message.success { background-color: #d4edda; color: #155724; }
+
+    /* Notification popup */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #56ab2f;
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      display: none;
+    }
+    .notification.show { display: block; }
+    .notification button {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Language dropdown -->
+  <div class="translate-section" id="google_translate_element"></div>
+
+  <div class="container" id="container">
+    <!-- Left section with image/quote -->
+    <div class="left">
+      <div class="overlay">
+        <p class="quote">
+          “Empowering farmers with AI-driven crop recommendations and yield predictions for a smarter agriculture future.”
+        </p>
+        <p class="author">Agri Ai Team</p>
+      </div>
+    </div>
+
+   <div class="right">
+  <!-- Sign-In Form -->
+  <div class="form-container login-form" id="login-form">
+    <h1>Sign In</h1>
+    <p class="subtitle">Enter your credentials to access your account.</p>
+    <form method="POST" action="/login">
+      <label for="login-username">Username:</label>
+      <input type="text" id="login-username" name="username" placeholder="Enter your Username" required />
+
+      <label for="login-password">Password:</label>
+      <input type="password" id="login-password" name="password" placeholder="Enter your password" required />
+
+      <button type="submit">Sign In</button>
+    </form>
+    <p class="signup">
+      Don't have an account? <a href="/signup">Sign up</a>
+    </p>
+  </div>
+</div>
+
+<style>
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 40px;
+}
+
+.form-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  width: 350px;
+  text-align: center;
+  animation: fadeIn 2s ease forwards; /* fast and stays visible */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* corrected */
+  }
+}
+.form-container h1 {
+  color: #2f6627;
+  margin-bottom: 10px;
+}
+
+.form-container .subtitle {
+  color: #555;
+  font-size: 0.95em;
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  display: block;
+  text-align: left;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-container input:focus {
+  border-color: #56ab2f;
+  box-shadow: 0 0 8px rgba(86,171,47,0.4);
+  outline: none;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background: #56ab2f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.form-container button:hover {
+  background: #2f6627;
+  transform: scale(1.05);
+}
+
+.form-container .signup {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #444;
+}
+
+.form-container .signup a {
+  color: #56ab2f;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.form-container .signup a:hover {
+  text-decoration: underline;
+}
+</style>
+
+  <!-- Notification Popup -->
+  <div class="notification" id="notification">
+    <p id="notification-message">Login successful!</p>
+    <button onclick="closeNotification()">×</button>
+  </div>
+
+  <script>
+    function closeNotification() {
+      const notification = document.getElementById("notification");
+      notification.classList.remove("show");
+    }
+  </script>
+
+  <!-- Google Translate Script -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: "en",
+          includedLanguages: "en,hi,mr",
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        },
+        "google_translate_element"
+      );
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

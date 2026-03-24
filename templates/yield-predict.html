@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Yield</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="icon"
+      type="image/png"
+      href="../static/image/Untitled design.png"
+    />
+    <link rel="stylesheet" href="../static/css/crop-yeild.css" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .translate-section {
+        margin-left: auto;
+      }
+
+      /* Styles for the language dropdown */
+      #google_translate_element {
+        display: inline-block;
+        z-index: 1001; /* Ensure it's above the header */
+      }
+
+      #google_translate_element select {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        background-color: white; /* White background for dropdown */
+        color: #333; /* Dark text color */
+        font-size: 14px; /* Font size */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        transition: background-color 0.3s ease; /* Smooth transition */
+      }
+
+      #google_translate_element select:hover {
+        background-color: white; /* Light grey on hover */
+      }
+
+      /* Hide "Powered by Google Translate" */
+      .skiptranslate > iframe.skiptranslate {
+        display: none !important; /* Hides iframe that shows the "Powered by Google Translate" */
+      }
+
+      /* For hiding the original text */
+      body {
+        top: 0 !important; /* To prevent any unnecessary space */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Language selection dropdown with Google Translate -->
+    <div class="translate-section" id="google_translate_element"></div>
+    <header>
+      <div class="container">
+        <h1 class="logo">Agri Ai</h1>
+        <div class="nav-right">
+          <nav>
+            <ul>
+              <li><a href="/dashboard">Dashboard</a></li>
+              <li>
+                <a href="/crop-recommend">Recommend Crop</a>
+              </li>
+              <li>
+                <a href="/yield-predict">Predict Yield</a>
+              </li>
+              <li>
+                <a href="/weather-forecast">Weather Forecast</a>
+              </li>
+              <li>
+                <a href="/fertilizer-recommend">Fertilizer Recommendation</a>
+              </li>
+              <li><a href="/analysis">Analysis</a></li>
+            </ul>
+          </nav>
+          <div class="user-menu">
+            <img
+              src="../static/image/user-logo.png"
+              alt="User"
+              class="user-icon"
+              onclick="toggleUserMenu()"
+            />
+            <div class="user-dropdown" id="user-dropdown">
+              <a href="/profile">View Profile</a>
+              <a href="/help">Help ?</a>
+              <a href="/logout">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="prediction-section">
+      <div class="container">
+        <h1>Yield Prediction</h1>
+        <form
+          id="yield-prediction-form"
+          method="POST"
+          action="/yield-predict"
+        >
+          <div class="mb-3">
+            <label for="Year">Year:</label>
+            <select id="Year" name="Year" required>
+              <option value="" disabled selected>Select Year</option>
+              {% for year in range(1990, 2014) %}
+              <option value="{{ year }}">{{ year }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="Area">Area:</label>
+            <select id="Area" name="Area" required>
+              <option value="" disabled selected>Select Area</option>
+              {% for area in areas %}
+              <option value="{{ area }}">{{ area }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="Item">Item:</label>
+            <select id="Item" name="Item" required>
+              <option value="" disabled selected>Select Item</option>
+              {% for item in items %}
+              <option value="{{ item }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="average_rain_fall_mm_per_year"
+              >Average Rainfall (mm/year):</label
+            >
+            <input
+              type="number"
+              id="average_rain_fall_mm_per_year"
+              name="average_rain_fall_mm_per_year"
+              placeholder="Enter the avg.rainfall value"
+              min="51"
+              max="3240"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="pesticides_tonnes">Pesticides (tonnes):</label>
+            <input
+              type="number"
+              id="pesticides_tonnes"
+              name="pesticides_tonnes"
+              placeholder="Enter the pesticides value"
+              min="0.04"
+              max="367778"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="avg_temp">Average Temperature (°C):</label>
+            <input
+              type="number"
+              id="avg_temp"
+              name="avg_temp"
+              placeholder="Enter the avg.temperature value"
+              step="0.01"
+              min="1.3"
+              max="40.65"
+            />
+          </div>
+
+          <button type="submit" class="btn-primary">Predict Yield</button>
+        </form>
+
+        <div class="mt-4 alert alert-info">
+          {% if prediction %}
+          <h2>Yeild Predicted: {{ prediction }} kg/ha</h2>
+          {% else %}
+          <p>Please provide the necessary details for yeild prediction.</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 AgriAi. All rights reserved.</p>
+    </footer>
+    <script>
+      // Toggle user dropdown menu
+      function toggleUserMenu() {
+        const userDropdown = document.getElementById("user-dropdown");
+        userDropdown.classList.toggle("show");
+      }
+
+      function logout() {
+        window.location.href = "{{ url_for('logout') }}";
+      }
+
+      // Close the dropdown if the user clicks outside of it
+      window.onclick = function (event) {
+        if (!event.target.matches(".user-icon")) {
+          const dropdowns = document.getElementsByClassName("user-dropdown");
+          for (let i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains("show")) {
+              openDropdown.classList.remove("show");
+            }
+          }
+        }
+      };
+    </script>
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,hi,mr",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+
+        // Store the selected language in local storage
+        function setLanguage(lang) {
+          localStorage.setItem("preferredLanguage", lang);
+        }
+
+        // Retrieve the preferred language from local storage
+        function getPreferredLanguage() {
+          return localStorage.getItem("preferredLanguage") || "en"; // Default to English
+        }
+
+        // Load the selected language on page load
+        window.onload = function () {
+          const preferredLanguage = getPreferredLanguage();
+          if (preferredLanguage) {
+            document.querySelector("#google_translate_element select").value =
+              preferredLanguage; // Set the dropdown to the stored language
+            setLanguage(preferredLanguage); // Call setLanguage function to store it
+          }
+        };
+
+        // Add event listener to the dropdown to save the selected language
+        document.addEventListener("change", function (event) {
+          if (event.target.matches("#google_translate_element select")) {
+            setLanguage(event.target.value);
+          }
+        });
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    ></script>
+  </body>
+</html>
+
+

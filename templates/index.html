@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Recommender System</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../static/image/Untitled design.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .translate-section {
+        margin-left: auto;
+        margin-right: 20px; /* Space on the right */
+      }
+
+      /* Styles for the language dropdown */
+      #google_translate_element {
+        display: inline-block;
+      }
+
+      #google_translate_element select {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        background-color: white; /* White background for dropdown */
+        color: #333; /* Dark text color */
+        font-size: 14px; /* Font size */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        transition: background-color 0.3s ease; /* Smooth transition */
+      }
+
+      #google_translate_element select:hover {
+        background-color: white; /* Light grey on hover */
+      }
+
+      /* Hide "Powered by Google Translate" */
+      .skiptranslate > iframe.skiptranslate {
+        display: none !important; /* Hides iframe that shows the "Powered by Google Translate" */
+      }
+
+      /* For hiding the original text */
+      body {
+        top: 0 !important; /* To prevent any unnecessary space */
+      }
+    </style>
+    <!-- You can place this script in a separate file or in the <head> -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute("href")).scrollIntoView({
+              behavior: "smooth",
+            });
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Language selection dropdown with Google Translate -->
+    <div class="translate-section" id="google_translate_element"></div>
+    <header>
+      <div class="container">
+        <h1 class="logo">Agri Ai</h1>
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#features">Explore</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="home">
+      <div class="intro">
+        <h1>Welcome to Agri Ai</h1>
+        <p>
+          Your go-to solution for intelligent crop recommendations and yield
+          predictions.
+        </p>
+        <a href="/login" class="btn" id="get-started-btn"
+          >Get Started</a
+        >
+      </div>
+    </section>
+
+    <section id="features" class="features-section">
+      <h2>Explore</h2>
+      <div class="features-container">
+        <div class="feature-box">
+          <img src="../static/image/crops-grow.jpg" alt="Crop Recommendation" />
+          <h3>Crop Recommendation</h3>
+          <p>
+            Get the best crop suggestions based on your inputs and data
+            analysis.
+          </p>
+        </div>
+        <div class="feature-box">
+          <img src="../static/image/crop-yeild.jpg" alt="Yield Prediction" />
+          <h3>Yield Prediction</h3>
+          <p>Predict the yield for your chosen crops with high accuracy.</p>
+        </div>
+        <div class="feature-box">
+          <img src="../static/image/crop-rain.jpg" alt="Weather Forecast" />
+          <h3>Weather Forecast</h3>
+          <p>
+            Stay updated with the latest weather forecasts to plan your farming
+            activities.
+          </p>
+        </div>
+        <div class="feature-box">
+          <img
+            src="../static/image/crop-fertilizer.jpg"
+            alt="Fertilizer Recommender"
+          />
+          <h3>Fertilizer Recommender</h3>
+          <p>
+            Analyze various datasets and recommend the fertilizer for your
+            agricultural practices.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section">
+      <div class="about-content">
+        <div class="about-text">
+          <h2>About Us</h2>
+          <p>
+            We are dedicated to providing innovative solutions to enhance
+            agricultural productivity through the use of advanced technologies
+            and data-driven insights.
+          </p>
+        </div>
+        <div class="about-image">
+          <img src="../static/image/farm.jpg" alt="About Us" />
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+      <h2>Contact Us</h2>
+      <p>
+        If you have any questions, feel free to reach out to us through the
+        following contact details:
+      </p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <i class="fas fa-phone-alt"></i>
+          <p>+91 8454069278</p>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <p>123 AgroSmart Lane, Farmville, India</p>
+        </div>
+        <div class="contact-item">
+          <i class="fas fa-envelope"></i>
+          <p><a href="mailto:info@agrosmart.com">info@agrosmart.com</a></p>
+        </div>
+      </div>
+    </section>
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          {
+            pageLanguage: "en",
+            includedLanguages: "en,hi,mr",
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          },
+          "google_translate_element"
+        );
+
+        // Store the selected language in local storage
+        function setLanguage(lang) {
+          localStorage.setItem("preferredLanguage", lang);
+        }
+
+        // Retrieve the preferred language from local storage
+        function getPreferredLanguage() {
+          return localStorage.getItem("preferredLanguage") || "en"; // Default to English
+        }
+
+        // Load the selected language on page load
+        window.onload = function () {
+          const preferredLanguage = getPreferredLanguage();
+          if (preferredLanguage) {
+            document.querySelector("#google_translate_element select").value =
+              preferredLanguage; // Set the dropdown to the stored language
+            setLanguage(preferredLanguage); // Call setLanguage function to store it
+          }
+        };
+
+        // Add event listener to the dropdown to save the selected language
+        document.addEventListener("change", function (event) {
+          if (event.target.matches("#google_translate_element select")) {
+            setLanguage(event.target.value);
+          }
+        });
+      }
+    </script>
+    <script
+      type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+    ></script>
+
+    <footer>
+      <p>&copy; 2024 AgriAi. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
